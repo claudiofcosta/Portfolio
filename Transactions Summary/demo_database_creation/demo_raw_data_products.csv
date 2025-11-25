@@ -1,0 +1,8 @@
+product_id;product_name;tipology_id;ticker;isin;stockexc_id;geography_id;alocation_id
+1;Apple Inc;3;AAPL;US0378331005;6;5;1
+2;Alphabet Inc;3;ABEC;US02079K1079;8;5;1
+3;Vanguard FTSE All-World UCITS ETF USD Acc;2;VWCE;IE00BK5BQT80;9;8;5
+4;MercadoLibre Inc;3;MELI;US58733R1023;6;4;1
+5;Deutsche Boerse Commodities Xetra-Gold ETC;1;4GLD;DE000A0S9GB0;9;1;3
+6;Bitcoin;4;BTC;none;1;1;4
+7;Goldman Sachs Access China Government Bond UCITS ETF USD (Dist);2;CBND;IE00BJSBCS90;5;2;2
