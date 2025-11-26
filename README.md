@@ -1,6 +1,6 @@
 ### **Personal Portfolio - Claudio Figueiredo Costa**
 
-#### This Portfolio is a compilation of several Data Science and Data Analysis projects that I have done, either for academic purposes or for personal use.
+##### This Portfolio is a compilation of several Data Science and Data Analysis projects that I have done, either for academic purposes or for personal use.
 ______________
 
 #### **Overview**
