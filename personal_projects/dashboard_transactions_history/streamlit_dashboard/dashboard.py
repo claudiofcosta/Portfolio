@@ -41,7 +41,8 @@ st.write("---")
 
 st.subheader ("Open Positions")
 
-df_open_positions = pd.read_csv ("data treatment/exported_dataframes/df_open_positions.csv")
+#df_open_positions = pd.read_csv ("data treatment/exported_dataframes/df_open_positions.csv")
+df_open_positions = pd.read_csv ("https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_transactions_history/data%20treatment/exported_dataframes/df_open_positions.csv", index_col=0)
 
 # Describe the dataframe
 st.dataframe(df_open_positions, hide_index=True, column_config={
@@ -77,7 +78,8 @@ with col10:
 
         # Describe the pie-chart
 
-        df_weights = pd.read_csv ("data treatment/exported_dataframes/df_weights.csv")
+        #df_weights = pd.read_csv ("data treatment/exported_dataframes/df_weights.csv")
+        df_weights = pd.read_csv ("https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_transactions_history/data%20treatment/exported_dataframes/df_weights.csv", index_col=0)
 
         df_weights = df_weights.sort_values ("product_name", ascending = True) 
 
@@ -121,7 +123,8 @@ with col11:
 
         # Describe the pie-chart
         
-        df_geographies = pd.read_csv ("data treatment/exported_dataframes/df_geographies.csv", index_col=0)
+        #df_geographies = pd.read_csv ("data treatment/exported_dataframes/df_geographies.csv", index_col=0)
+        df_geographies = pd.read_csv ("https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_transactions_history/data%20treatment/exported_dataframes/df_geographies.csv", index_col=0)
 
         fig, ax = plt.subplots()
 
@@ -162,7 +165,8 @@ with col12:
         
         # Describe the pie-chart
             
-        df_aloc_type = pd.read_csv ("data treatment/exported_dataframes/df_aloc_type.csv", index_col=0)
+        #df_aloc_type = pd.read_csv ("data treatment/exported_dataframes/df_aloc_type.csv", index_col=0)
+        df_aloc_type = pd.read_csv ("https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_transactions_history/data%20treatment/exported_dataframes/df_aloc_type.csv", index_col=0)
         df_aloc_type = df_aloc_type[df_aloc_type["weight"] > 0]
 
         fig, ax = plt.subplots()
@@ -204,8 +208,10 @@ st.space(size="small")
 
 st.subheader ("Dataframe of All Orders")
 
-df_orders_filtered_aux = pd.read_csv("data treatment/exported_dataframes/df_orders.csv", index_col="order_id")
-df_orders_filtered = pd.read_csv("data treatment/exported_dataframes/df_orders.csv", index_col="order_id", parse_dates=["date"])
+#df_orders_filtered_aux = pd.read_csv("data treatment/exported_dataframes/df_orders.csv", index_col="order_id")
+df_orders_filtered_aux = pd.read_csv("https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_transactions_history/data%20treatment/exported_dataframes/df_orders.csv", index_col="order_id")
+#df_orders_filtered = pd.read_csv("data treatment/exported_dataframes/df_orders.csv", index_col="order_id", parse_dates=["date"])
+df_orders_filtered = pd.read_csv("https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_transactions_history/data%20treatment/exported_dataframes/df_orders.csv", index_col="order_id", parse_dates=["date"])
 
 # Define filter buttons
 col1, col2, col3, col4 = st.columns(4)
