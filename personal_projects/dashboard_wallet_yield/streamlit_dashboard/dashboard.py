@@ -61,7 +61,7 @@ df_aux = pd.read_csv ("https://raw.githubusercontent.com/claudiofcosta/Portfolio
 #region Dataframe Monthly Evolution
 
 df_evolution_month["month"] = pd.to_datetime (df_evolution_month["date"], utc=True)
-df_evolution_month["month"] = df_evolution_month["month"].dt.to_period("ME")
+df_evolution_month["month"] = df_evolution_month["month"].dt.to_period("M")
 first_date = df_evolution_month.loc [0, "month"]
 last_date = df_evolution_month.loc [len(df_evolution_month)-1, "month"]
 
@@ -140,7 +140,7 @@ dataframe_yearly_bar = dataframe_yearly.loc [:,["date", "vwce_value_of_100eur", 
 
 # Treatments
 dataframe_yearly_bar["year"] = pd.to_datetime (dataframe_yearly_bar["date"], utc=True)
-dataframe_yearly_bar["year"] = dataframe_yearly_bar["year"].dt.to_period("YE")
+dataframe_yearly_bar["year"] = dataframe_yearly_bar["year"].dt.to_period("Y")
 dataframe_yearly_bar["year"] = dataframe_yearly_bar["year"].astype(str)
 dataframe_yearly_bar [["vwce_value_of_100eur", "vusa_value_of_100eur", "wallet_value_of_100eur"]] = dataframe_yearly_bar [["vwce_value_of_100eur", "vusa_value_of_100eur", "wallet_value_of_100eur"]] - 100
 dataframe_yearly_bar.rename(columns={'vusa_value_of_100eur': '  S&P 500 (standard)', 'vwce_value_of_100eur': '  MSCI All-World (standard)', "wallet_value_of_100eur": 'Wallet'}, inplace=True)
