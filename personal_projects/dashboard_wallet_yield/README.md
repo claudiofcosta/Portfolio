@@ -8,6 +8,8 @@ Throughout the app, the user's wallet can be compared with two standards, the S&
 
 - **Monthly Wallet Evolution** is a dataframe that contains the monthly returns of the investments. Besides the percentual monthly variation, also the return of 100€ invested is shown. Noteworthy, applying a date filter in this dataframe recalculates the "return of 100€" columns.
 
+- The formula to calculate return of 100€ invested for a given month n is: $\text{return month}_n = \text{return month}_{n-1} \times (1 + \text{relative variation}_n)$ . The usage this formula instead of simply dividing each row by the value in the first row serves to accomodate the fact that the user may make investments throughout the years. Using this formula, the additional alocated funds are considered for the calculation of the returns only after being invested, and not since timepoint 0.
+
 - The data of this dataframe (including date filters) is then used to generate a line plot, that shows the return of 100€ invested over time.
 
 - **Yearly Variation** is a bar plot that shows the yearly percentual returns of the investments, as well as the annual average and the return the beginning of the records
