@@ -1,6 +1,6 @@
 ### **Dashboard Transactions History**
 
-This small app is a dashboard that allows user to have an overview of his/her investment wallet. App has been deployed [here](https://cfcosta-dashboard-transactions-history.streamlit.app/)
+This small app is a dashboard that allows user to have an overview of his/her investment wallet. App has been deployed [here](https://cfcosta-dashboard-transactions-history.streamlit.app/).
 
 #### **App Overview**
 
@@ -25,7 +25,6 @@ This small app is a dashboard that allows user to have an overview of his/her in
 - The **data treatment** folder contains the data manipulation script applied previous to the generation of the dashboard. The dataframes were stored in csv files in the **data treatment/exported_dataframes** folder, and they constitute the basis of the datasets present in the dashboard.
 
 - The `dashboard.py` file in **streamlit_dashboard** folder contains the script used to mount the dashboard on Streamlit. Plots were built using the matplotlib package. Additionally, an automatic launcher executable file was generated using the pyinstaller package: `dashboard_launch_app.exe` , present in the main folder. With it, the user can open the dashboard automatically without the need of a terminal or an IDE.
-
 ________________
 
 #### **Contacts**
