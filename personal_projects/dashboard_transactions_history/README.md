@@ -17,7 +17,7 @@ This small app is a dashboard that allows user to have an overview of his/her in
 
 #### **App Building**
 
-- This app is designed to obtain data from an SQL database. Its underlying schema is accessible ![here](https://github.com/claudiofcosta/Portfolio/blob/52815c9440b6016439431c97d9da4e985b6766c7/personal_projects/dashboard_transactions_history/demo_database_creation/SQL_schema.png).
+- This app is designed to obtain data from an SQL database. Its underlying schema is accessible [here](https://github.com/claudiofcosta/Portfolio/blob/52815c9440b6016439431c97d9da4e985b6766c7/personal_projects/dashboard_transactions_history/demo_database_creation/SQL_schema.png).
 
 - For demonstration, a demo database was used. The raw data and the SQL scripts used for its creation can be found in the **demo_database_creation** folder.
 
