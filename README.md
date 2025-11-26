@@ -8,6 +8,8 @@ ______________
 ##### ▫️ The folder **personal_projects** includes projects that were done for personal use, namely:
 
 ###### &emsp; 🔸 The `dashboard_transactions_history` is a Streamlit dashboard that gives users an overview of his/her investment wallet.<br> &emsp;&emsp;&nbsp;&thinsp;&thinsp;  App has been deployed [here](https://cfcosta-dashboard-transactions-history.streamlit.app/), using a demo dataset for proof-of-concept.
+
+###### &emsp; 🔹 The `dashboard_wallet_yield` is a Streamlit dashboard that gives users an overview of how his/her investment wallet <br> &emsp;&emsp;&nbsp;&thinsp;&thinsp;  compares with the market. App has been deployed [here](https://cfcosta-dashboard-transactions-history.streamlit.app/), using a demo dataset for proof-of-concept.
 ______________
 
 #### **Contacts**

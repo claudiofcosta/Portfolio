@@ -53,8 +53,10 @@ st.set_page_config(layout="wide")
 
 st.subheader ("Monthly Wallet Evolution")
 
-df_evolution_month = pd.read_csv("exported_dataframes/df_evolution_month.csv", index_col=0)
-df_aux = pd.read_csv("exported_dataframes/df_evolution_month.csv", index_col=0)
+#df_evolution_month = pd.read_csv("exported_dataframes/df_evolution_month.csv", index_col=0)
+#df_aux = pd.read_csv("exported_dataframes/df_evolution_month.csv", index_col=0)
+df_evolution_month = pd.read_csv ("https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_wallet_yield/exported_dataframes/df_evolution_month.csv", index_col=0)
+df_aux = pd.read_csv ("https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_wallet_yield/exported_dataframes/df_evolution_month.csv", index_col=0)
 
 #region Dataframe Monthly Evolution
 
@@ -131,7 +133,8 @@ st.write("---")
 
 st.subheader ("Yearly Variation (%)")
 
-dataframe_yearly = pd.read_csv("exported_dataframes/dataframe_yearly.csv")
+#dataframe_yearly = pd.read_csv("exported_dataframes/dataframe_yearly.csv")
+dataframe_yearly = pd.read_csv ("https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_wallet_yield/exported_dataframes/dataframe_yearly.csv", index_col=0)
 
 dataframe_yearly_bar = dataframe_yearly.loc [:,["date", "vwce_value_of_100eur", "vusa_value_of_100eur", "wallet_value_of_100eur"]]
 
@@ -185,7 +188,8 @@ with col1:
 
     st.subheader ("S&P 500 (standard)")
 
-    df_vusa = pd.read_csv ("exported_dataframes/df_vusa.csv", index_col=0)
+    #df_vusa = pd.read_csv ("exported_dataframes/df_vusa.csv", index_col=0)
+    df_vusa = pd.read_csv ("https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_wallet_yield/exported_dataframes/df_vusa.csv", index_col=0)
 
     st.dataframe(df_vusa, hide_index=True, column_config={"date": st.column_config.DateColumn ("Month", format="YYYY-MM"),
                                                         "vusa_close": st.column_config.NumberColumn ("Closing Value (EUR)", format="euro"),
@@ -197,7 +201,8 @@ with col2:
 
     st.subheader ("MSCI All-World (standard)")
 
-    df_vwce = pd.read_csv ("exported_dataframes/df_vwce.csv", index_col=0)
+    #df_vwce = pd.read_csv ("exported_dataframes/df_vwce.csv", index_col=0)
+    df_vwce = pd.read_csv ("https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_wallet_yield/exported_dataframes/df_vwce.csv", index_col=0)
 
     st.dataframe(df_vwce, hide_index=True, column_config={"date": st.column_config.DateColumn ("Month", format="YYYY-MM"),
                                                         "vwce_close": st.column_config.NumberColumn ("Closing Value (EUR)", format="euro"),
@@ -209,7 +214,8 @@ with col3:
 
     st.subheader ("Wallet")
 
-    df_wallet = pd.read_csv ("exported_dataframes/df_wallet.csv", index_col=0)
+    #df_wallet = pd.read_csv ("exported_dataframes/df_wallet.csv", index_col=0)
+    df_wallet = pd.read_csv ("https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_wallet_yield/exported_dataframes/df_wallet.csv", index_col=0)
 
     st.dataframe(df_wallet, hide_index=True, column_config={"date": st.column_config.DateColumn ("Month", format="YYYY-MM"),
                                                             "wallet_net_invested": st.column_config.NumberColumn ("Net Invested (EUR)", format="euro"),
