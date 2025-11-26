@@ -79,7 +79,7 @@ with col10:
         # Describe the pie-chart
 
         #df_weights = pd.read_csv ("data treatment/exported_dataframes/df_weights.csv")
-        df_weights = pd.read_csv ("https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_transactions_history/data%20treatment/exported_dataframes/df_weights.csv", index_col=0)
+        df_weights = pd.read_csv ("https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_transactions_history/data%20treatment/exported_dataframes/df_weights.csv")
 
         df_weights = df_weights.sort_values ("product_name", ascending = True) 
 
