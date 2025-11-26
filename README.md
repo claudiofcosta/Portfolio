@@ -5,12 +5,13 @@ ______________
 
 #### **Overview**
 
-- The folder **personal_projects** includes projects that were done for personal use, namely:
-    - The `dashboard_transactions_history` is a Streamlit dashboard that allows user to have an overview of his/her investment wallet. The app has been deployed [here](https://cfcosta-dashboard-transactions-history.streamlit.app/), using a demo dataset for proof-of-concept.
+▫️ The folder **personal_projects** includes projects that were done for personal use, namely:
+
+<span style="font-size:14px; margin-left:75px;"> 🔸 The `dashboard_transactions_history` is a Streamlit dashboard that allows user to have an overview of his/her investment wallet. The app has been deployed [here](https://cfcosta-dashboard-transactions-history.streamlit.app/), using a demo dataset for proof-of-concept.</span>
 ______________
 
 #### **Contacts**
 
-🔸 **Email**: claudiofcosta@live.com.pt
+<span style="margin-left:75px;"> 🔸 **Email**: claudiofcosta@live.com.pt
 
-🔹 **LinkedIn**: [linkedin.com/claudiofcosta](https://www.linkedin.com/in/claudiofcosta/)
+<span style="margin-left:75px;"> 🔹 **LinkedIn**: [linkedin.com/claudiofcosta](https://www.linkedin.com/in/claudiofcosta/)
