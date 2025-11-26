@@ -1,6 +1,0 @@
-alocation_id;alocation_description;perc_stocks;perc_bonds;perc_gold;perc_crypto;perc_other_fin_instruments
-1;100% Stocks;100;0;0;0;0
-2;100% Bonds;0;100;0;0;0
-3;100% Gold;0;0;100;0;0
-4;100% Crypto;0;0;0;100;0
-5;Mixed example;29.7;66.2;0;0;4.1
