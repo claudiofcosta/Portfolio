@@ -1,6 +1,6 @@
 ### **Dashboard Wallet Yield**
 
-This small app is a dashboard that allows user to have an overview of how his investments compare with the market. App has been deployed [here](https://cfcosta-dashboard-wallet-yield.streamlit.app/).
+This small app is a dashboard that allows user to have an overview of how his/her investments compare with the general market. App has been deployed [here](https://cfcosta-dashboard-wallet-yield.streamlit.app/).
 
 Throughout the app, the user's wallet can be compared with two standards, the S&P500 and the MSCI All-World. To eliminate noise factors (for instance dollar/euro exchange rate fluctuations), the price of two ETFs were used as proxies of the value of these indexes, namely, the VUSA ETF (traded in the Euronext Amsterdam Stock Exchange) and the VWCE ETF (traded in XETRA Stock Exchange).
 
