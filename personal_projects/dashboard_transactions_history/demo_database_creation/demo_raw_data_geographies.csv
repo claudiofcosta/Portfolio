@@ -1,0 +1,9 @@
+geography_id;geography_description;perc_north_america;perc_latin_america;perc_europe;perc_mena;perc_east_se_asia;perc_oceania;perc_other_geo
+1;no geography;0;0;0;0;0;0;0
+2;100% Asia;0;0;0;0;100;0;0
+3;100% Europe;0;0;100;0;0;0;0
+4;100% LatAm;0;100;0;0;0;0;0
+5;100% USA/CAN;100;0;0;0;0;0;0
+6;100% MENA;0;0;0;100;0;0;0
+7;100% Oceania;0;0;0;0;0;100;0
+8;Mixed example;66;1;15;1;14;2;1
