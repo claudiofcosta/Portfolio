@@ -3,3 +3,4 @@ personal_projects/dashboard_transactions_history/demo_database_creation/.env
 
 # Virtual environments
 personal_projects/dashboard_transactions_history/transactions_venv/
+personal_projects/dashboard_wallet_yield/wallet_venv
