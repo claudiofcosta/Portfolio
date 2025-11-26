@@ -10,7 +10,8 @@ st.set_page_config(layout="wide")
 
 st.subheader ("Profit per Product")
 
-df_prod_profit = pd.read_csv ("data treatment/exported_dataframes/df_prod_profit.csv", index_col=0)
+#df_prod_profit = pd.read_csv ("data treatment/exported_dataframes/df_prod_profit.csv", index_col=0)
+df_prod_profit = pd.read_csv ("https://github.com/claudiofcosta/Portfolio/blob/52815c9440b6016439431c97d9da4e985b6766c7/personal_projects/dashboard_transactions_history/data%20treatment/exported_dataframes/df_prod_profit.csv", index_col=0)
 df_prod_profit = df_prod_profit.reset_index(drop = True)
 df_prod_profit = df_prod_profit.sort_values ("transaction_value_net", ascending = False)
 
