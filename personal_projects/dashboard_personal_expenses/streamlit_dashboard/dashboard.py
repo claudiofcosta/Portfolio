@@ -17,7 +17,8 @@ lado_esq, lado_dir = st.tabs(["Evolution of the Assets", "Record of Income and E
 
 with lado_esq:
 
-    df_evolution = pd.read_csv("exported_dataframes/df_evolution.csv", index_col=0)
+#    df_evolution = pd.read_csv("exported_dataframes/df_evolution.csv", index_col=0)
+    df_evolution = pd.read_csv ("https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_personal_expenses/exported_dataframes/df_evolution.csv", index_col=0)
     df_evolution["date"] = pd.to_datetime (df_evolution["date"])
 
     st.subheader ("Evolution of the Assets")
@@ -28,9 +29,11 @@ with lado_esq:
 
     st.subheader ("Daily Evolution")
 
-    df_evolution_daily_plot = pd.read_csv("exported_dataframes/df_evolution_daily_plot.csv", index_col=0)
+#    df_evolution_daily_plot = pd.read_csv("exported_dataframes/df_evolution_daily_plot.csv", index_col=0)
+    df_evolution_daily_plot = pd.read_csv ("https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_personal_expenses/exported_dataframes/df_evolution_daily_plot.csv", index_col=0)
     df_evolution_daily_plot["date"] = pd.to_datetime (df_evolution_daily_plot["date"])
-    df_evolution_daily = pd.read_csv("exported_dataframes/df_evolution_daily.csv", index_col=0)
+#    df_evolution_daily = pd.read_csv("exported_dataframes/df_evolution_daily.csv", index_col=0)
+    df_evolution_daily = pd.read_csv ("https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_personal_expenses/exported_dataframes/df_evolution_daily.csv", index_col=0)
     df_evolution_daily["date"] = pd.to_datetime (df_evolution_daily["date"])
 
     # Date filters
@@ -75,8 +78,10 @@ with lado_esq:
 
     st.subheader ("Monthly Evolution")
 
-    df_evolution_month_plot = pd.read_csv("exported_dataframes/df_evolution_month_plot.csv", index_col=0)
-    df_evolution_month = pd.read_csv("exported_dataframes/df_evolution_month.csv", index_col=0)
+#    df_evolution_month_plot = pd.read_csv("exported_dataframes/df_evolution_month_plot.csv", index_col=0)
+    df_evolution_month_plot = pd.read_csv ("https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_personal_expenses/exported_dataframes/df_evolution_month_plot.csv", index_col=0)
+#    df_evolution_month = pd.read_csv("exported_dataframes/df_evolution_month.csv", index_col=0)
+    df_evolution_month = pd.read_csv ("https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_personal_expenses/exported_dataframes/df_evolution_month.csv", index_col=0)
     
     df_evolution_month_plot_avg = df_evolution_month_plot.pivot_table(index="account", values="balance", aggfunc="mean")
     df_evolution_month_plot_avg ["date"] = "AVERAGE"
@@ -126,8 +131,10 @@ with lado_esq:
 
     st.subheader ("Yearly Evolution")
 
-    df_evolution_year = pd.read_csv("exported_dataframes/df_evolution_year.csv", index_col=0)
-    df_evolution_year_plot = pd.read_csv("exported_dataframes/df_evolution_year_plot.csv", index_col=0)
+#    df_evolution_year = pd.read_csv("exported_dataframes/df_evolution_year.csv", index_col=0)
+    df_evolution_year = pd.read_csv ("https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_personal_expenses/exported_dataframes/df_evolution_year.csv", index_col=0)
+#    df_evolution_year_plot = pd.read_csv("exported_dataframes/df_evolution_year_plot.csv", index_col=0)
+    df_evolution_year_plot = pd.read_csv ("https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_personal_expenses/exported_dataframes/df_evolution_year_plot.csv", index_col=0)
   
     df_evolution_year_plot_avg = df_evolution_year_plot.pivot_table(index="account", values="balance", aggfunc="mean")
     df_evolution_year_plot_avg ["date"] = "AVERAGE"
@@ -186,7 +193,8 @@ with lado_esq:
 
     st.subheader ("Raw Data")
 
-    df_evo_raw = pd.read_csv("exported_dataframes/df_evolution.csv", index_col=0)
+#    df_evo_raw = pd.read_csv("exported_dataframes/df_evolution.csv", index_col=0)
+    df_evo_raw = pd.read_csv ("https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_personal_expenses/exported_dataframes/df_evolution.csv", index_col=0)
     df_evo_raw["date"] = pd.to_datetime (df_evo_raw["date"])
     df_evo_raw = df_evo_raw [["id_expense", "value", "date", "account_number", "balance_account_1111", "balance_account_2222", "balance_account_3333", "total_balance"]]
 
@@ -218,7 +226,8 @@ with lado_dir:
 
         st.subheader ("Income")
         
-        df_income = pd.read_csv("exported_dataframes/df_income.csv", index_col=0)
+#        df_income = pd.read_csv("exported_dataframes/df_income.csv", index_col=0)
+        df_income = pd.read_csv ("https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_personal_expenses/exported_dataframes/df_income.csv", index_col=0)
         df_income["date"] = pd.to_datetime (df_income["date"])
 
         tab1, tab2 = st.tabs(["Income by Category", "Income per Year"])
@@ -318,7 +327,8 @@ with lado_dir:
         
         with tab21:
 
-            df_primary_exp = pd.read_csv("exported_dataframes/df_expenses.csv", index_col=0)
+#            df_primary_exp = pd.read_csv("exported_dataframes/df_expenses.csv", index_col=0)
+            df_primary_exp = pd.read_csv ("https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_personal_expenses/exported_dataframes/df_expenses.csv", index_col=0)
             df_primary_exp["date"] = pd.to_datetime (df_primary_exp["date"])
 
             try:
@@ -399,7 +409,8 @@ with lado_dir:
 
         with tab23:
 
-            df_primary_aggregated = pd.read_csv("exported_dataframes/df_expenses.csv", index_col=0)
+#            df_primary_aggregated = pd.read_csv("exported_dataframes/df_expenses.csv", index_col=0)
+            df_primary_aggregated = pd.read_csv ("https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_personal_expenses/exported_dataframes/df_expenses.csv", index_col=0)
             df_primary_aggregated["date"] = pd.to_datetime (df_primary_aggregated["date"])
 
             try:
@@ -510,7 +521,8 @@ with lado_dir:
 
         st.subheader ("Expenses by Secondary Category")
 
-        df_secondary_exp = pd.read_csv("exported_dataframes/df_expenses.csv", index_col=0)
+#        df_secondary_exp = pd.read_csv("exported_dataframes/df_expenses.csv", index_col=0)
+        df_secondary_exp = pd.read_csv ("https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_personal_expenses/exported_dataframes/df_expenses.csv", index_col=0)
         df_secondary_exp["date"] = pd.to_datetime (df_secondary_exp["date"])
 
         df_secondary_exp_plot = df_secondary_exp.copy()
@@ -632,7 +644,8 @@ with lado_dir:
 
     st.subheader ("Raw Data - List of All Inputs")
 
-    df_data = pd.read_csv("exported_dataframes/df_data.csv", index_col=0)
+#    df_data = pd.read_csv("exported_dataframes/df_data.csv", index_col=0)
+    df_data = pd.read_csv ("https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_personal_expenses/exported_dataframes/df_data.csv", index_col=0)
     df_data["date"] = pd.to_datetime (df_data["date"])
 
     # Filter buttons
