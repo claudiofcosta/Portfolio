@@ -21,10 +21,6 @@ with lado_esq:
     df_evolution = pd.read_csv ("https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_personal_expenses/exported_dataframes/df_evolution.csv", index_col=0)
     df_evolution["date"] = pd.to_datetime (df_evolution["date"])
 
-    st.subheader ("Evolution of the Assets")
-
-    st.write("---")
-
     #region daily evolution
 
     st.subheader ("Daily Evolution")
