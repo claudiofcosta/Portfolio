@@ -370,7 +370,8 @@ with lado_dir:
         with tab22:
             st.subheader ("Total Yearly Expenses")
 
-            df_primary_year = pd.read_csv("exported_dataframes/df_expenses.csv", index_col=0)
+#            df_primary_year = pd.read_csv("exported_dataframes/df_expenses.csv", index_col=0)
+            df_primary_year = pd.read_csv ("https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_personal_expenses/exported_dataframes/df_expenses.csv", index_col=0)
             df_primary_year["date"] = pd.to_datetime (df_primary_year["date"])
             df_primary_year["year"] = df_primary_year["date"].dt.to_period("Y").astype(str)
             df_primary_year =  df_primary_year.groupby (["year", "main_category"]) ["value"].sum().reset_index()
@@ -386,7 +387,8 @@ with lado_dir:
 
             st.subheader ("Yearly Average")
             
-            df_primary_year_avg = pd.read_csv("exported_dataframes/df_expenses.csv", index_col=0)
+#            df_primary_year_avg = pd.read_csv("exported_dataframes/df_expenses.csv", index_col=0)
+            df_primary_year_avg = pd.read_csv ("https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_personal_expenses/exported_dataframes/df_expenses.csv", index_col=0)
             df_primary_year_avg["date"] = pd.to_datetime (df_primary_year_avg["date"])
             df_primary_year_avg["year"] = df_primary_year_avg["date"].dt.to_period("Y").astype(str)
             df_primary_year_avg ["value"] = df_primary_year_avg ["value"] * (-1)
@@ -452,7 +454,8 @@ with lado_dir:
         with tab24:
             st.subheader ("Total Yearly Expenses")
 
-            df_primary_aggregated_year = pd.read_csv("exported_dataframes/df_expenses.csv", index_col=0)
+#            df_primary_aggregated_year = pd.read_csv("exported_dataframes/df_expenses.csv", index_col=0)
+            df_primary_aggregated_year = pd.read_csv ("https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_personal_expenses/exported_dataframes/df_expenses.csv", index_col=0)
             df_primary_aggregated_year["date"] = pd.to_datetime (df_primary_aggregated_year["date"])
             df_primary_aggregated_year["year"] = df_primary_aggregated_year["date"].dt.to_period("Y").astype(str)
             df_primary_aggregated_year =  df_primary_aggregated_year.groupby (["year", "essential"]) ["value"].sum().reset_index()
@@ -468,7 +471,8 @@ with lado_dir:
 
             st.subheader ("Yearly Average")
             
-            df_primary_aggregated_year_avg = pd.read_csv("exported_dataframes/df_expenses.csv", index_col=0)
+#            df_primary_aggregated_year_avg = pd.read_csv("exported_dataframes/df_expenses.csv", index_col=0)
+            df_primary_aggregated_year_avg = pd.read_csv ("https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_personal_expenses/exported_dataframes/df_expenses.csv", index_col=0)
             df_primary_aggregated_year_avg["date"] = pd.to_datetime (df_primary_aggregated_year_avg["date"])
             df_primary_aggregated_year_avg["year"] = df_primary_aggregated_year_avg["date"].dt.to_period("Y").astype(str)
             df_primary_aggregated_year_avg ["value"] = df_primary_aggregated_year_avg ["value"] * (-1)
