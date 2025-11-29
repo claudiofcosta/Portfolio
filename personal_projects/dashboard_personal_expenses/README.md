@@ -4,7 +4,9 @@ This small app is a dashboard that allows user to have an overview of his/her pe
 
 #### **App Overview**
 
-- On top, user can upload his/her own dataset. A template csv file can be downloaded via the download button
+- On top, user can upload his/her own dataset. A template csv file can be downloaded via the download button.
+
+- User can also define the initial balance of each account, by changing the values in the dataframe
 
 - The app is composed by two main tabs: The first shows the evolution of the total financial assets over time, and the second is a record of income and expenses.
 

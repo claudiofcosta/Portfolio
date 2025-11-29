@@ -11,7 +11,7 @@ st.set_page_config(layout="wide")
 #initial_dataset = pd.read_csv("demo_raw_data_personal_expenses.csv", delimiter=";")
 initial_dataset = pd.read_csv ("https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_personal_expenses/demo_raw_data_personal_expenses.csv?raw=1", delimiter=";")
 
-col1, col2 = st.columns (2, width=1000)
+col1, col2 = st.columns (2, width=1500, gap="large")
 with col1:
     uploaded_file = st.file_uploader("Upload your CSV file", type=["csv"])
     delimitador = st.text_input("Introduce the data delimiter", value = ";")
@@ -25,6 +25,23 @@ if uploaded_file is not None:
 else:
     initial_dataset = initial_dataset
 
+with col2:
+    list_accounts = initial_dataset["account"].drop_duplicates().tolist()
+    temp_dict = {"Account": list_accounts,
+                 "Initial Balance": ([0.0]*len(list_accounts))
+                }
+    st.write ("Provide the initial balances of each account")
+    initial_balances = st.data_editor (pd.DataFrame(temp_dict)).reset_index(drop=True).set_index("Account")
+
+    dict_for_df = {"id_expense": ([0.0]*len(list_accounts)),
+                   "value": [(float(initial_balances.loc [i,"Initial Balance"])) for i in list_accounts],
+                   "date": ([initial_dataset.loc [0, "date"]]*len(list_accounts)),
+                   "account": list_accounts,
+                   "category_id": ([0]*len(list_accounts)),
+                   "main_category": (["none"]*len(list_accounts)),
+                   "secondary_category": (["none"]*len(list_accounts))}
+    df_from_dict = data_wrangling_methods.raw_in_out_inputs(pd.DataFrame(dict_for_df))
+
 st.space ()
 st.write ("-------")
 st.space ()
@@ -35,7 +52,8 @@ st.space ()
 
 df_data = data_wrangling_methods.raw_in_out_inputs(initial_dataset)
 
-df_evolution = data_wrangling_methods.evolution (df_data.copy())
+df_evolution = pd.concat ([df_from_dict, df_data.copy()], ignore_index=True)
+df_evolution = data_wrangling_methods.evolution (df_evolution)
 
 df_income = data_wrangling_methods.income(df_data.copy())
 
@@ -226,7 +244,7 @@ with lado_esq:
                     "balance_account_3333": st.column_config.NumberColumn ("Balance Account #3333", format="euro"),
                     "total_balance": st.column_config.NumberColumn ("Total Balance", format="euro")})
     
-    st.caption("This dataset contains the raw data used in this tab of the app")
+    st.caption("This dataset contains the raw data used in this tab of the app. Note that this dataset already contains the inputs of the initial balance (first rows of the table, whose ID Expense = 0)")
 
     #endregion
 
