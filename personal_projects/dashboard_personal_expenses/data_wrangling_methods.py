@@ -16,7 +16,7 @@ def expenses(dataframe, list_essencials):
     return dataframe
 
 def annual_avg(dataframe, grouping_column: str, neg_files=False):
-    dataframe["year"] = dataframe["date"].dt.dataframe("Y").astype(str)
+    dataframe["year"] = dataframe["date"].dt.year.astype(str)
     if neg_files == True:
         dataframe ["value"] = dataframe ["value"] * (-1)
     dataframe =  dataframe.groupby (["year", grouping_column]) ["value"].sum().reset_index()
@@ -42,21 +42,8 @@ def evolution (dataframe):
         dataframe ["total_balance"] = dataframe ["total_balance"] + dataframe [i]
     return dataframe
 
-def evolution_plot (dataframe):
-    # determine all unique account numbers
-    list_accounts = dataframe["account_number"].drop_duplicates().tolist()
-    # make a list of the balances of each account in each timeframe
-    list_dataframes = []
-    for i in list_accounts:
-        column_title = "balance_account_" + str(i)
-        temporary_df = dataframe [["date", column_title]].rename (columns = {column_title: "balance"})
-        temporary_df ["account"] = i
-        list_dataframes.append(temporary_df)
-    outcome_dataframe = pd.concat( list_dataframes , ignore_index = True).reset_index()
-    return outcome_dataframe
-
 def evolution_timeframe (dataframe, timeframe: str):
-    """for the timeframe, select D for Daily, ME for Month-End, or YE for Year-End"""
+    """for the timeframe, write D for Daily, ME for Month-End, or YE for Year-End"""
     # determine all unique account numbers
     list_accounts = dataframe["account_number"].drop_duplicates().tolist()
     # add get list of column titles
@@ -70,5 +57,17 @@ def evolution_timeframe (dataframe, timeframe: str):
     list_column_titles_without_date.append("total_balance")
     # group by date, and then resample considering the dimeframe
     dataframe = dataframe [list_column_titles_with_date].groupby ("date") [list_column_titles_without_date].last()
-    dataframe = dataframe.resample(timeframe).last().reset_index()
+    dataframe = dataframe.resample(timeframe).last().reset_index() if timeframe != "D" else dataframe.reset_index()
     return dataframe
+
+def evolution_plot (dataframe):
+    # determine all unique account numbers
+    list_column_titles = [i for i in dataframe.columns if "balance_account" in i]
+    # make a list of the balances of each account in each timeframe
+    list_dataframes = []
+    for i in list_column_titles:
+        temporary_df = dataframe [["date", i]].rename (columns = {i: "balance"})
+        temporary_df ["account"] = i[16:]
+        list_dataframes.append(temporary_df)
+    outcome_dataframe = pd.concat( list_dataframes , ignore_index = True).reset_index()
+    return outcome_dataframe

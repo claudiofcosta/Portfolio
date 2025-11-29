@@ -11,16 +11,16 @@ import data_wrangling_methods
 ################################################################################################################################################################################################
 
 #initial_dataset = pd.read_csv("demo_raw_data_personal_expenses.csv", delimiter=";")
-initial_dataset = pd.read_csv ("https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_personal_expenses/demo_raw_data_personal_expenses.csv", index_col=0, delimiter=";")
+initial_dataset = pd.read_csv ("https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_personal_expenses/demo_raw_data_personal_expenses.csv", delimiter=";")
 
 df_data = data_wrangling_methods.raw_in_out_inputs(initial_dataset)
 
-df_evolution = data_wrangling_methods.evolution (df_data)
+df_evolution = data_wrangling_methods.evolution (df_data.copy())
 
-df_income = data_wrangling_methods.income(df_data)
+df_income = data_wrangling_methods.income(df_data.copy())
 
 list_essential_expenses = ["Car", "Groceries", "Health", "Home Expenses", "Public Transports", "Taxes", "Telecom"]
-df_expenses = data_wrangling_methods.expenses(df_data, list_essential_expenses)
+df_expenses = data_wrangling_methods.expenses(df_data.copy(), list_essential_expenses)
 
 
 ################################################################################################################################################################################################
@@ -40,9 +40,9 @@ with lado_esq:
 
     st.subheader ("Daily Evolution")
 
-    df_evolution_daily = data_wrangling_methods.evolution_timeframe (df_evolution, "D")
+    df_evolution_daily = data_wrangling_methods.evolution_timeframe (df_evolution.copy(), "D")
 
-    df_evolution_daily_plot = data_wrangling_methods.evolution_plot (df_evolution)
+    df_evolution_daily_plot = data_wrangling_methods.evolution_plot (df_evolution_daily.copy())
 
     # Date filters
     try:
@@ -85,9 +85,9 @@ with lado_esq:
 
     st.subheader ("Monthly Evolution")
 
-    df_evolution_month = data_wrangling_methods.evolution_timeframe (df_evolution, "ME")
+    df_evolution_month = data_wrangling_methods.evolution_timeframe (df_evolution.copy(), "ME")
 
-    df_evolution_month_plot = data_wrangling_methods.evolution_plot(df_evolution_month)
+    df_evolution_month_plot = data_wrangling_methods.evolution_plot(df_evolution_month.copy())
 
     df_evolution_month_plot_avg = df_evolution_month_plot.pivot_table(index="account", values="balance", aggfunc="mean")
     df_evolution_month_plot_avg ["date"] = "AVERAGE"
@@ -137,9 +137,9 @@ with lado_esq:
 
     st.subheader ("Yearly Evolution")
 
-    df_evolution_year = data_wrangling_methods.evolution_timeframe (df_evolution, "YE")
+    df_evolution_year = data_wrangling_methods.evolution_timeframe (df_evolution.copy(), "YE")
 
-    df_evolution_year_plot = data_wrangling_methods.evolution_plot(df_evolution_year)
+    df_evolution_year_plot = data_wrangling_methods.evolution_plot(df_evolution_year.copy())
 
     df_evolution_year_plot_avg = df_evolution_year_plot.pivot_table(index="account", values="balance", aggfunc="mean")
     df_evolution_year_plot_avg ["date"] = "AVERAGE"
@@ -291,11 +291,11 @@ with lado_dir:
 
             st.subheader ("Yearly Average")
             
-            df_income_year_avg = data_wrangling_methods.annual_avg(df_income, "secondary_category")
+            df_income_year_avg = data_wrangling_methods.annual_avg(df_income.copy(), "secondary_category")
 
             df_income_year_avg = df_income_year_avg.rename (columns = {"secondary_category": "Category", "value": "Value"})
 
-            st.bar_chart (df_income_year_avg, x= "Secondary Category", x_label="", y = "Value", y_label="Euros", sort="-Value")
+            st.bar_chart (df_income_year_avg, x= "Category", x_label="", y = "Value", y_label="Euros", sort="-Value")
         
             st.caption ("This bar chart represents the yearly average of income per category")
 
@@ -371,7 +371,7 @@ with lado_dir:
 
             st.subheader ("Yearly Average")
 
-            df_primary_year_avg = data_wrangling_methods.annual_avg(df_expenses, "main_category", True)
+            df_primary_year_avg = data_wrangling_methods.annual_avg(df_expenses.copy(), "main_category", True)
 
             df_primary_year_avg = df_primary_year_avg.rename (columns = {"year": "Year",
                                                                         "main_category": "Main Category",
@@ -384,6 +384,7 @@ with lado_dir:
         with tab23:
 
             df_primary_aggregated = df_expenses.copy()
+            df_primary_aggregated ["value"] = df_primary_aggregated ["value"] * (-1)
 
             try:
                 start_date, end_date = st.date_input("Date interval to consider:  ",value=[df_primary_aggregated["date"].min(), "today"])
@@ -397,8 +398,6 @@ with lado_dir:
             tab11, tab12 = st.tabs(["Pie Chart", "Dataset"])
 
             with tab11:
-
-                df_primary_aggregated ["value"] = df_primary_aggregated ["value"] * (-1)
 
                 fig, ax = plt.subplots()
                 
@@ -443,7 +442,7 @@ with lado_dir:
 
             st.subheader ("Yearly Average")
         
-            df_primary_aggregated_year_avg = data_wrangling_methods.annual_avg(df_expenses, "essential", True)
+            df_primary_aggregated_year_avg = data_wrangling_methods.annual_avg(df_expenses.copy(), "essential", True)
 
             df_primary_aggregated_year_avg = df_primary_aggregated_year_avg.rename (columns = {"year": "Year",
                                                                                                 "essential": "Type of Expense",
