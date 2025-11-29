@@ -37,6 +37,7 @@ def evolution (dataframe):
     # fill the NaN
     dataframe [list_column_titles] = dataframe[list_column_titles].ffill().fillna(0)   
     # calculate total balance
+    dataframe ["total_balance"] = 0
     for i in list_column_titles:
         dataframe ["total_balance"] = dataframe ["total_balance"] + dataframe [i]
     return dataframe
