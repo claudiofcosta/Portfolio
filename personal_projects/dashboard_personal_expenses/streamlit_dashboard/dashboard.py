@@ -11,17 +11,15 @@ st.set_page_config(layout="wide")
 #initial_dataset = pd.read_csv("demo_raw_data_personal_expenses.csv", delimiter=";")
 initial_dataset = pd.read_csv ("https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_personal_expenses/demo_raw_data_personal_expenses.csv?raw=1", delimiter=";")
 
-col1, col2, col3 = st.columns (3, width=1500)
+col1, col2 = st.columns (2, width=1000)
 with col1:
     uploaded_file = st.file_uploader("Upload your CSV file", type=["csv"])
-with col2:
     delimitador = st.text_input("Introduce the data delimiter", value = ";")
-with col3:
     df_template = pd.read_csv ("https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_personal_expenses/personal_expenses_csv_template.csv?raw=1", delimiter=";")
     df_template = df_template.to_csv().encode("utf-8")
     st.download_button ("Download a template CSV file", data=df_template, file_name="personal_expenses_csv_template.csv")
 
-if uploaded_file == True:
+if uploaded_file is not None:
     uploaded_file_df = pd.read_csv (uploaded_file, delimiter=delimitador)
     initial_dataset = uploaded_file_df
 else:
@@ -41,9 +39,7 @@ df_evolution = data_wrangling_methods.evolution (df_data.copy())
 
 df_income = data_wrangling_methods.income(df_data.copy())
 
-list_essential_expenses = ["Car", "Groceries", "Health", "Home Expenses", "Public Transports", "Taxes", "Telecom"]
-df_expenses = data_wrangling_methods.expenses(df_data.copy(), list_essential_expenses)
-
+df_expenses = data_wrangling_methods.expenses(df_data.copy())
 
 ################################################################################################################################################################################################
 ################################################################################################################################################################################################
@@ -402,8 +398,8 @@ with lado_dir:
             st.caption ("This bar chart represents the yearly average of expenses per category")       
 
         with tab23:
-
-            ess_expenses = st.multiselect("Define the essencial expenses:", options=sorted(df_expenses["main_category"].unique().tolist()), default = list_essential_expenses)
+            
+            ess_expenses = st.multiselect("Define the essencial expenses:", options=sorted(df_expenses["main_category"].unique().tolist()))
             df_expenses.loc [df_expenses["main_category"].isin(ess_expenses), "essential"] = "Essentials"
             df_expenses.loc [~df_expenses["main_category"].isin(ess_expenses), "essential"] = "Non-Essentials"
 
@@ -566,7 +562,7 @@ with lado_dir:
             start_date, end_date = pd.to_datetime(start_date), pd.to_datetime(end_date)
                     
         with col112:
-            primaries = st.multiselect("Select the primary categories:", options=sorted(df_exp_fragm["main_category"].unique().tolist()), default = ["Leisure", "Holidays"])
+            primaries = st.multiselect("Select the primary categories:", options=sorted(df_exp_fragm["main_category"].unique().tolist()))
 
         df_exp_fragm = df_exp_fragm[(df_exp_fragm["date"] >= start_date) & (df_exp_fragm["date"] <= end_date)]
         df_exp_fragm = df_exp_fragm[df_exp_fragm["main_category"].isin(primaries)]    

@@ -9,10 +9,8 @@ def income (dataframe):
     dataframe = dataframe [dataframe ["main_category"] == "Income"] 
     return dataframe
 
-def expenses(dataframe, list_essencials):
-    dataframe = dataframe [dataframe ["main_category"] != "Income"] 
-    dataframe.loc [dataframe["main_category"].isin(list_essencials), "essential"] = "Essentials"
-    dataframe.loc [~dataframe["main_category"].isin(list_essencials), "essential"] = "Non-Essentials"
+def expenses(dataframe):
+    dataframe = dataframe [dataframe ["main_category"] != "Income"]
     return dataframe
 
 def annual_avg(dataframe, grouping_column: str, neg_files=False):
