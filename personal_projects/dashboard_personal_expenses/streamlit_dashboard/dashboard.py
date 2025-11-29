@@ -157,7 +157,7 @@ with lado_esq:
         for i in df_evolution_month.columns:
             if "balance_account" in i:
                 string = "Balance " + i[16:] + " (EUR)"
-                df_evolution_daily = df_evolution_daily.rename (columns = {i: string})
+                df_evolution_month = df_evolution_month.rename (columns = {i: string})
 
         st.dataframe (df_evolution_month, column_config={
                         "value": st.column_config.Column ("Value"),
@@ -219,7 +219,7 @@ with lado_esq:
         for i in df_evolution_year.columns:
             if "balance_account" in i:
                 string = "Balance " + i[16:] + " (EUR)"
-                df_evolution_daily = df_evolution_daily.rename (columns = {i: string})
+                df_evolution_year = df_evolution_year.rename (columns = {i: string})
 
         st.dataframe (df_evolution_year, column_config={
                         "value": st.column_config.Column ("Value"),
@@ -236,17 +236,9 @@ with lado_esq:
 
     st.subheader ("Raw Data")
 
-    df_evo_raw = df_evolution [["id_expense", "value", "date", "account", "balance_account_1111", "balance_account_2222", "balance_account_3333", "total_balance"]]
+    df_evo_raw = df_evolution.copy()
 
-    st.dataframe (df_evo_raw, column_config={
-                    "id_expense": st.column_config.Column ("ID Expense"),
-                    "value": st.column_config.Column ("Value"),
-                    "date": st.column_config.DateColumn ("Date", format="YYYY-MM-DD"),
-                    "account": st.column_config.Column ("Account"),
-                    "balance_account_1111": st.column_config.NumberColumn ("Balance Account #1111", format="euro"),
-                    "balance_account_2222": st.column_config.NumberColumn ("Balance Account #2222", format="euro"),
-                    "balance_account_3333": st.column_config.NumberColumn ("Balance Account #3333", format="euro"),
-                    "total_balance": st.column_config.NumberColumn ("Total Balance", format="euro")})
+    st.dataframe (df_evo_raw)
     
     st.caption("This dataset contains the raw data used in this tab of the app. Note that this dataset already contains the inputs of the initial balance (first rows of the table, whose ID Expense = 0)")
 
