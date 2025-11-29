@@ -11,12 +11,15 @@ st.set_page_config(layout="wide")
 #initial_dataset = pd.read_csv("demo_raw_data_personal_expenses.csv", delimiter=";")
 initial_dataset = pd.read_csv ("https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_personal_expenses/demo_raw_data_personal_expenses.csv?raw=1", delimiter=";")
 
-col1, col2 = st.columns (2, width=1000)
+col1, col2, col3 = st.columns (3, width=1500)
 with col1:
     uploaded_file = st.file_uploader("Upload your CSV file", type=["csv"])
-    delimitador = st.text_input("Introduce the data delimiter", value = ";")
 with col2:
-    st.download_button ("Download a template CSV file", "https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_personal_expenses/personal_expenses_csv_template.csv?raw=1")
+    delimitador = st.text_input("Introduce the data delimiter", value = ";")
+with col3:
+    df_template = pd.read_csv ("https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_personal_expenses/personal_expenses_csv_template.csv?raw=1", delimiter=";")
+    df_template = df_template.to_csv().encode("utf-8")
+    st.download_button ("Download a template CSV file", data=df_template, file_name="personal_expenses_csv_template.csv")
 
 if uploaded_file == True:
     uploaded_file_df = pd.read_csv (uploaded_file, delimiter=delimitador)
