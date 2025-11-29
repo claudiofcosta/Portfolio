@@ -40,7 +40,7 @@ with lado_esq:
 
     st.subheader ("Daily Evolution")
 
-    df_evolution_daily = data_wrangling_methods.evolution_plot (df_evolution, "D")
+    df_evolution_daily = data_wrangling_methods.evolution_timeframe (df_evolution, "D")
 
     df_evolution_daily_plot = data_wrangling_methods.evolution_plot (df_evolution)
 
@@ -85,7 +85,7 @@ with lado_esq:
 
     st.subheader ("Monthly Evolution")
 
-    df_evolution_month = data_wrangling_methods.evolution_plot (df_evolution, "ME")
+    df_evolution_month = data_wrangling_methods.evolution_timeframe (df_evolution, "ME")
 
     df_evolution_month_plot = data_wrangling_methods.evolution_plot(df_evolution_month)
 
@@ -137,7 +137,7 @@ with lado_esq:
 
     st.subheader ("Yearly Evolution")
 
-    df_evolution_year = data_wrangling_methods.evolution_plot (df_evolution, "YE")
+    df_evolution_year = data_wrangling_methods.evolution_timeframe (df_evolution, "YE")
 
     df_evolution_year_plot = data_wrangling_methods.evolution_plot(df_evolution_year)
 
