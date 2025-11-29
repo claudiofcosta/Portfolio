@@ -100,14 +100,16 @@ with lado_esq:
     with tab2:
 
         # Dataframe
+
+        for i in df_evolution_daily.columns:
+            if "balance_account" in i:
+                string = "Balance " + i[16:] + " (EUR)"
+                df_evolution_daily = df_evolution_daily.rename (columns = {i: string})
+
         st.dataframe (df_evolution_daily, column_config={
                         "value": st.column_config.Column ("Value"),
                         "date": st.column_config.DateColumn ("Date", format="YYYY-MM-DD"),
-                        "account": st.column_config.Column ("Account"),
-                        "balance_account_1111": st.column_config.NumberColumn ("Balance Account #1111", format="euro"),
-                        "balance_account_2222": st.column_config.NumberColumn ("Balance Account #2222", format="euro"),
-                        "balance_account_3333": st.column_config.NumberColumn ("Balance Account #3333", format="euro"),
-                        "total_balance": st.column_config.NumberColumn ("Total Balance", format="euro")})
+                        "total_balance": st.column_config.NumberColumn ("Total Balance (EUR)")})
 
     st.caption("This area chart and correspondent dataframe show the evolution of the assets over time.")
 
@@ -152,14 +154,15 @@ with lado_esq:
 
         # Dataframe
 
+        for i in df_evolution_month.columns:
+            if "balance_account" in i:
+                string = "Balance " + i[16:] + " (EUR)"
+                df_evolution_daily = df_evolution_daily.rename (columns = {i: string})
+
         st.dataframe (df_evolution_month, column_config={
                         "value": st.column_config.Column ("Value"),
-                        "date": st.column_config.DateColumn ("Month", format="YYYY-MM"),
-                        "account": st.column_config.Column ("Account"),
-                        "balance_account_1111": st.column_config.NumberColumn ("Balance Account #1111", format="euro"),
-                        "balance_account_2222": st.column_config.NumberColumn ("Balance Account #2222", format="euro"),
-                        "balance_account_3333": st.column_config.NumberColumn ("Balance Account #3333", format="euro"),
-                        "total_balance": st.column_config.NumberColumn ("Total Balance", format="euro")})
+                        "date": st.column_config.DateColumn ("Date", format="YYYY-MM"),
+                        "total_balance": st.column_config.NumberColumn ("Total Balance (EUR)")})
         
     st.caption("This bar chart and correspondent dataframe show the evolution of the assets over the months. The bar plot on the right represents the monthly average.")
 
@@ -213,14 +216,15 @@ with lado_esq:
 
         # Dataframe
 
-        st.dataframe (df_evolution_month, column_config={
+        for i in df_evolution_year.columns:
+            if "balance_account" in i:
+                string = "Balance " + i[16:] + " (EUR)"
+                df_evolution_daily = df_evolution_daily.rename (columns = {i: string})
+
+        st.dataframe (df_evolution_year, column_config={
                         "value": st.column_config.Column ("Value"),
-                        "date": st.column_config.DateColumn ("Month", format="YYYY-MM"),
-                        "account": st.column_config.Column ("Account"),
-                        "balance_account_1111": st.column_config.NumberColumn ("Balance Account #1111", format="euro"),
-                        "balance_account_2222": st.column_config.NumberColumn ("Balance Account #2222", format="euro"),
-                        "balance_account_3333": st.column_config.NumberColumn ("Balance Account #3333", format="euro"),
-                        "total_balance": st.column_config.NumberColumn ("Total Balance", format="euro")})
+                        "date": st.column_config.DateColumn ("Date", format="YYYY"),
+                        "total_balance": st.column_config.NumberColumn ("Total Balance (EUR)")})
         
     st.caption("This bar chart and correspondent dataframe show the evolution of the assets over the years. The middle bar plot represents the annual average, while the one on the right indicates the change since the beginning of the records.")
 

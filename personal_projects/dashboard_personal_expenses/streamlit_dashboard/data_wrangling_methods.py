@@ -54,8 +54,8 @@ def evolution_timeframe (dataframe, timeframe: str):
     list_column_titles_with_date.append("total_balance")
     list_column_titles_without_date.append("total_balance")
     # group by date, and then resample considering the dimeframe
-    dataframe = dataframe [list_column_titles_with_date].groupby ("date") [list_column_titles_without_date].last()
-    dataframe = dataframe.resample(timeframe).last().reset_index() if timeframe != "D" else dataframe.reset_index()
+    dataframe = dataframe [list_column_titles_with_date].groupby ("date") [list_column_titles_without_date].last() 
+    dataframe = (dataframe.resample(timeframe).last() - dataframe.resample(timeframe).first()).reset_index()  if timeframe != "D" else dataframe.reset_index()
     return dataframe
 
 def evolution_plot (dataframe):
