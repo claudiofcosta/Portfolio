@@ -11,7 +11,7 @@ import data_wrangling_methods
 ################################################################################################################################################################################################
 
 #initial_dataset = pd.read_csv("demo_raw_data_personal_expenses.csv", delimiter=";")
-initial_dataset = pd.read_csv ("https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_personal_expenses/demo_raw_data_personal_expenses.csv", delimiter=";")
+initial_dataset = pd.read_csv ("https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_personal_expenses/demo_raw_data_personal_expenses.csv?raw=1", delimiter=";")
 
 df_data = data_wrangling_methods.raw_in_out_inputs(initial_dataset)
 
