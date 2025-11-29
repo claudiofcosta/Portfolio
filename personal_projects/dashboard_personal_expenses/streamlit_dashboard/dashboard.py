@@ -6,12 +6,31 @@ from datetime import date
 
 import data_wrangling_methods
 
-################################################################################################################################################################################################
-################################################################################################################################################################################################
-################################################################################################################################################################################################
+st.set_page_config(layout="wide")
 
 #initial_dataset = pd.read_csv("demo_raw_data_personal_expenses.csv", delimiter=";")
 initial_dataset = pd.read_csv ("https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_personal_expenses/demo_raw_data_personal_expenses.csv?raw=1", delimiter=";")
+
+col1, col2 = st.columns (2, width=1000)
+with col1:
+    uploaded_file = st.file_uploader("Upload your CSV file", type=["csv"])
+    delimitador = st.text_input("Introduce the data delimiter", value = ";")
+    uploaded_file_df = pd.read_csv ("https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_personal_expenses/demo_raw_data_personal_expenses.csv?raw=1", delimiter=";")
+with col2:
+    st.write ("Download a template CSV file")
+
+if uploaded_file == True:
+    initial_dataset = uploaded_file_df
+else:
+    initial_dataset = initial_dataset
+
+st.space ()
+st.write ("-------")
+st.space ()
+
+################################################################################################################################################################################################
+################################################################################################################################################################################################
+################################################################################################################################################################################################
 
 df_data = data_wrangling_methods.raw_in_out_inputs(initial_dataset)
 
@@ -26,8 +45,6 @@ df_expenses = data_wrangling_methods.expenses(df_data.copy(), list_essential_exp
 ################################################################################################################################################################################################
 ################################################################################################################################################################################################
 ################################################################################################################################################################################################
-
-st.set_page_config(layout="wide")
 
 lado_esq, lado_dir = st.tabs(["Evolution of the Assets", "Record of Income and Expenses"])
 
@@ -310,7 +327,7 @@ with lado_dir:
 
         st.subheader ("Expenses by Main Category")
 
-        tab21, tab22, tab23, tab24, tab25 = st.tabs(["Expense by Category", "Yearly Expenses by Category", "Aggregation by Essenciality", "Yearly Expenses by Essenciality", "Technical Note"])
+        tab21, tab22, tab23, tab24, tab25 = st.tabs(["Expense by Category", "Yearly Expenses by Category", "Define your Essential Expenses", "Aggregation by Essenciality", "Yearly Expenses by Essenciality"])
         
         with tab21:
 
@@ -379,9 +396,23 @@ with lado_dir:
 
             st.bar_chart (df_primary_year_avg, x= "Main Category", x_label="", y = "Value", y_label="Euros", sort="-Value")
         
-            st.caption ("This bar chart represents the yearly average of expenses per category")
+            st.caption ("This bar chart represents the yearly average of expenses per category")       
 
         with tab23:
+
+            ess_expenses = st.multiselect("Define the essencial expenses:", options=sorted(df_expenses["main_category"].unique().tolist()), default = list_essential_expenses)
+            df_expenses.loc [df_expenses["main_category"].isin(ess_expenses), "essential"] = "Essentials"
+            df_expenses.loc [~df_expenses["main_category"].isin(ess_expenses), "essential"] = "Non-Essentials"
+
+            col1000, col1001 = st.columns(2)
+            with col1000:
+                st.write("Essential Expenses:")
+                st.table(df_expenses["main_category"] [df_expenses["essential"] == "Essentials"].sort_values().unique())
+            with col1001:
+                st.write("Non-Essential Expenses:")
+                st.table(df_expenses["main_category"] [df_expenses["essential"] == "Non-Essentials"].sort_values().unique())
+
+        with tab24:
 
             df_primary_aggregated = df_expenses.copy()
             df_primary_aggregated ["value"] = df_primary_aggregated ["value"] * (-1)
@@ -423,7 +454,7 @@ with lado_dir:
                         
             st.caption("This pie chart and correspondent dataset represent the expenses aggregated by its essentiality")
 
-        with tab24:
+        with tab25:
             st.subheader ("Total Yearly Expenses")
 
             df_primary_aggregated_year = df_expenses.copy()
@@ -450,26 +481,7 @@ with lado_dir:
 
             st.bar_chart (df_primary_aggregated_year_avg, x= "Type of Expense", x_label="", y = "Value", y_label="Euros", sort="-Value")
         
-            st.caption ("This bar chart represents the yearly average of expenses aggregated by its essentiality")       
-
-        with tab25:
-
-            st.markdown("""
-                        - **Expenses considered essential**:
-                            1. Car
-                            2. Groceries
-                            3. Health
-                            4. Home Expenses
-                            5. Public Transports
-                            6. Taxes
-                            7. Telecom""")
-
-            st.markdown("""
-                        - **Expenses considered non-essential**:
-                            1. Clothing
-                            2. Holidays
-                            3. Leisure
-                            4. Purchases""")
+            st.caption ("This bar chart represents the yearly average of expenses aggregated by its essentiality")
 
         #endregion
 
