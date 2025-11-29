@@ -32,7 +32,7 @@ This small app is a dashboard that allows user to have an overview of his/her pe
 
 - Basic manipulations functions are kept in an apart script (called `data_wrangling_methods.py`).
 
-- The `dashboard.py` file in **streamlit_dashboard** folder contains the script used to mount the dashboard on Streamlit. Plots were built using the matplotlib package. Additionally, an automatic launcher executable file was generated using the pyinstaller package: `dashboard_launch_app.exe` , present in the main folder. With it, the user can open the dashboard automatically without the need of a terminal or an IDE.
+- The `dashboard.py` file in **streamlit_dashboard** folder contains the script used to mount the dashboard on Streamlit. Plots were built using the Altair package. Additionally, an automatic launcher executable file was generated using the pyinstaller package: `dashboard_launch_app.exe` , present in the main folder. With it, the user can open the dashboard automatically without the need of a terminal or an IDE.
 ________________
 
 #### **Contacts**
