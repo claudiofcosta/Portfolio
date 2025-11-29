@@ -51,6 +51,7 @@ def evolution_plot (dataframe):
         column_title = "balance_account_" + str(i)
         temporary_df = dataframe [["date", column_title]].rename (columns = {column_title: "balance"})
         temporary_df ["account"] = i
+        list_dataframes.append(temporary_df)
     outcome_dataframe = pd.concat( list_dataframes , ignore_index = True)
     return outcome_dataframe
 
