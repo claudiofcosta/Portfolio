@@ -52,7 +52,7 @@ def evolution_plot (dataframe):
         temporary_df = dataframe [["date", column_title]].rename (columns = {column_title: "balance"})
         temporary_df ["account"] = i
         list_dataframes.append(temporary_df)
-    outcome_dataframe = pd.concat( list_dataframes , ignore_index = True)
+    outcome_dataframe = pd.concat( list_dataframes , ignore_index = True).reset_index()
     return outcome_dataframe
 
 def evolution_timeframe (dataframe, timeframe: str):
