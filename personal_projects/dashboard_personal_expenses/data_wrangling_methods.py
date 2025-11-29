@@ -31,7 +31,7 @@ def evolution (dataframe):
     # add evolution per account number
     list_column_titles = []
     for i in list_accounts:
-        column_title = "balance_account_" + i
+        column_title = "balance_account_" + str(i)
         dataframe [column_title] = (dataframe [dataframe ["account_number"] == i]) ["value"].cumsum()
         list_column_titles.append (column_title)
     # fill the NaN
@@ -47,7 +47,7 @@ def evolution_plot (dataframe):
     # make a list of the balances of each account in each timeframe
     list_dataframes = []
     for i in list_accounts:
-        column_title = "balance_account_" + i
+        column_title = "balance_account_" + str(i)
         temporary_df = dataframe [["date", column_title]].rename (columns = {column_title: "balance"})
         temporary_df ["account"] = i
     outcome_dataframe = pd.concat( list_dataframes , ignore_index = True)
@@ -61,7 +61,7 @@ def evolution_timeframe (dataframe, timeframe: str):
     list_column_titles_with_date = ["date"]
     list_column_titles_without_date = []
     for i in list_accounts:
-        column_title = "balance_account_" + i
+        column_title = "balance_account_" + str(i)
         list_column_titles_with_date.append (column_title)
         list_column_titles_without_date.append (column_title)
     list_column_titles_with_date.append("total_balance")
