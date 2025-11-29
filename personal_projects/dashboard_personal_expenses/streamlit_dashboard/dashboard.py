@@ -8,7 +8,6 @@ import data_wrangling_methods
 
 st.set_page_config(layout="wide")
 
-#initial_dataset = pd.read_csv("demo_raw_data_personal_expenses.csv", delimiter=";")
 initial_dataset = pd.read_csv ("https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_personal_expenses/demo_raw_data_personal_expenses.csv?raw=1", delimiter=";")
 
 col1, col2 = st.columns (2, width=1500, gap="large")
@@ -273,26 +272,38 @@ with lado_dir:
             
             df_income_by_cat = df_income_by_cat.groupby("secondary_category")["value"].sum().reset_index()
             df_income_by_cat = df_income_by_cat [df_income_by_cat["value"] > 0]
+            df_income_by_cat ["weight"] = (df_income_by_cat ["value"] / (df_income_by_cat ["value"].sum())).round(3)
 
             tab11, tab12 = st.tabs(["Pie Chart", "Dataset"])
 
             with tab11:
-
-                fig, ax = plt.subplots()
                 
-                wedges, label_texts, autopct_texts = ax.pie(df_income_by_cat["value"], labels=df_income_by_cat["secondary_category"], autopct='%1.1f%%', startangle=140,
-                        pctdistance=0.8, textprops={'color':"k", 'fontsize': 7}, colors=['tomato', 'turquoise', 'khaki', 'springgreen', "hotpink", "orange", "ghostwhite", "limegreen"])
-                for txt in label_texts:
-                    txt.set_color("white")
+                pie = alt.Chart(df_income_by_cat).mark_arc(outerRadius=300).encode(
+                    theta=alt.Theta("value:Q", stack=True),
+                    color=alt.Color("secondary_category:N", legend=None)
+                ).properties(height=800, width=800)
 
-                plt.style.use ("ggplot")
-                fig.patch.set_facecolor('none')  # figure background
+                # calculate angles
+                text_layer = (alt.Chart(df_income_by_cat).transform_window(cumulative='sum(value)', frame=[None, 0]).transform_calculate(mid_angle="datum.cumulative - datum.value/2"))
+                                   
+                text_inside = text_layer.mark_text(size=25, color="black", align='center', baseline='middle').encode(
+                    theta=alt.Theta("mid_angle:Q"),
+                    radius=alt.value(200),
+                    text=alt.Text("weight:Q", format=".1%")
+                )
+                               
+                text_outside = text_layer.mark_text(size=25, color="white", align='center', baseline='middle').encode(
+                    theta=alt.Theta("mid_angle:Q"),
+                    radius=alt.value(350),
+                    text=alt.Text("secondary_category:N")
+                )
+                
+                chart = pie + text_inside + text_outside
 
-                st.pyplot(fig)
+                st.altair_chart(chart)
             
             with tab12:
                 df_income_by_cat_table = df_income_by_cat.copy()
-                df_income_by_cat_table ["weight"] = df_income_by_cat_table ["value"] / (df_income_by_cat_table ["value"].sum())
                 df_income_by_cat_table = df_income_by_cat_table.sort_values ("value", ascending = False)
                 st.dataframe(df_income_by_cat_table, hide_index=True, column_config={"value": st.column_config.NumberColumn ("Total Income (EUR)", format="euro"),
                                                                                      "secondary_category": st.column_config.Column ("Secondary Category"),
@@ -354,28 +365,38 @@ with lado_dir:
             df_primary_exp = df_primary_exp[(df_primary_exp["date"] >= start_date) & (df_primary_exp["date"] <= end_date)]
             
             df_primary_exp = df_primary_exp.groupby ("main_category") ["value"].sum().reset_index()
+            df_primary_exp ["weight"] = df_primary_exp ["value"] / (df_primary_exp ["value"].sum())
             
             tab11, tab12 = st.tabs(["Pie Chart", "Dataset"])
 
             with tab11:
+                    
+                pie = alt.Chart(df_primary_exp).mark_arc(outerRadius=300).encode(
+                    theta=alt.Theta("value:Q", stack=True),
+                    color=alt.Color("main_category:N", legend=None)
+                ).properties(height=800, width=800)
 
-                df_primary_exp ["value"] = df_primary_exp ["value"] * (-1)
-
-                fig, ax = plt.subplots()
+                # calculate angles
+                text_layer = (alt.Chart(df_primary_exp).transform_window(cumulative='sum(value)', frame=[None, 0]).transform_calculate(mid_angle="datum.cumulative - datum.value/2"))
+                                   
+                text_inside = text_layer.mark_text(size=25, color="black", align='center', baseline='middle').encode(
+                    theta=alt.Theta("mid_angle:Q"),
+                    radius=alt.value(200),
+                    text=alt.Text("weight:Q", format=".1%")
+                )
+                               
+                text_outside = text_layer.mark_text(size=25, color="white", align='center', baseline='middle').encode(
+                    theta=alt.Theta("mid_angle:Q"),
+                    radius=alt.value(350),
+                    text=alt.Text("main_category:N")
+                )
                 
-                wedges, label_texts, autopct_texts = ax.pie(df_primary_exp["value"], labels=df_primary_exp["main_category"], autopct='%1.1f%%', startangle=40,
-                        pctdistance=0.8, textprops={'color':"k", 'fontsize': 7}, colors=['tomato', 'turquoise', 'khaki', 'springgreen', "hotpink", "orange", "ghostwhite", "mediumorchid", "limegreen", "brown", "dodgerblue", "gold", "red", "mediumslateblue", "lawngreen", "peru"])
-                for txt in label_texts:
-                    txt.set_color("white")
+                chart = pie + text_inside + text_outside
 
-                plt.style.use ("ggplot")
-                fig.patch.set_facecolor('none')  # figure background
-
-                st.pyplot(fig)
+                st.altair_chart(chart)
             
             with tab12:
                 df_primary_exp_table = df_primary_exp.copy()
-                df_primary_exp_table ["weight"] = df_primary_exp_table ["value"] / (df_primary_exp_table ["value"].sum())
                 df_primary_exp_table = df_primary_exp_table.sort_values ("value", ascending = False)
                 st.dataframe(df_primary_exp_table, hide_index=True, column_config={"value": st.column_config.NumberColumn ("Total Expense (EUR)", format="euro"),
                                                                                     "main_category": st.column_config.Column ("Main Category"),
@@ -438,28 +459,38 @@ with lado_dir:
             df_primary_aggregated = df_primary_aggregated[(df_primary_aggregated["date"] >= start_date) & (df_primary_aggregated["date"] <= end_date)]
             
             df_primary_aggregated = df_primary_aggregated.groupby ("essential") ["value"].sum().reset_index()
+            df_primary_aggregated ["weight"] = df_primary_aggregated ["value"] / (df_primary_aggregated ["value"].sum())
 
             tab11, tab12 = st.tabs(["Pie Chart", "Dataset"])
 
             with tab11:
 
-                fig, ax = plt.subplots()
+                pie = alt.Chart(df_primary_aggregated).mark_arc(outerRadius=300).encode(
+                    theta=alt.Theta("value:Q", stack=True),
+                    color=alt.Color("essential:N", legend=None)
+                ).properties(height=800, width=800)
+
+                # calculate angles
+                text_layer = (alt.Chart(df_primary_aggregated).transform_window(cumulative='sum(value)', frame=[None, 0]).transform_calculate(mid_angle="datum.cumulative - datum.value/2"))
+                                   
+                text_inside = text_layer.mark_text(size=25, color="black", align='center', baseline='middle').encode(
+                    theta=alt.Theta("mid_angle:Q"),
+                    radius=alt.value(200),
+                    text=alt.Text("weight:Q", format=".1%")
+                )
+                               
+                text_outside = text_layer.mark_text(size=25, color="white", align='center', baseline='middle').encode(
+                    theta=alt.Theta("mid_angle:Q"),
+                    radius=alt.value(350),
+                    text=alt.Text("essential:N")
+                )
                 
-                wedges, label_texts, autopct_texts = ax.pie(df_primary_aggregated["value"], labels=df_primary_aggregated["essential"], autopct='%1.1f%%', startangle=40,
-                        pctdistance=0.8, textprops={'color':"k", 'fontsize': 7}, colors=['tomato', 'turquoise', 'khaki', 'springgreen', "hotpink", "orange", "ghostwhite", "limegreen"])
-                for txt in label_texts:
-                    txt.set_color("white")
-                #plt.legend(loc="center left", bbox_to_anchor=(1, 0, 0.5, 1), labelcolor='black')
+                chart = pie + text_inside + text_outside
 
-                plt.style.use ("ggplot")
-                fig.patch.set_facecolor('none')  # figure background
-                ax.set_facecolor('none')         # axes background
-
-                st.pyplot(fig)
+                st.altair_chart(chart)
             
             with tab12:
                 df_primary_aggregated_table = df_primary_aggregated.copy()
-                df_primary_aggregated_table ["weight"] = df_primary_aggregated_table ["value"] / (df_primary_aggregated_table ["value"].sum())
                 df_primary_aggregated_table = df_primary_aggregated_table.sort_values ("value", ascending = False)
                 st.dataframe(df_primary_aggregated_table, hide_index=True, column_config={"value": st.column_config.NumberColumn ("Total Expense (EUR)", format="euro"),
                                                                                            "essential": st.column_config.Column ("Type of Expense"),
@@ -580,35 +611,44 @@ with lado_dir:
 
         df_exp_fragm = df_exp_fragm[(df_exp_fragm["date"] >= start_date) & (df_exp_fragm["date"] <= end_date)]
         df_exp_fragm = df_exp_fragm[df_exp_fragm["main_category"].isin(primaries)]    
-        df_exp_fragm = df_exp_fragm.groupby (["main_category", "secondary_category"]) ["value"].sum().reset_index()
-        
-        df_exp_fragm_plot = df_exp_fragm [["secondary_category", "value"]].sort_values("value")
-        df_exp_fragm_plot ["value"] = df_exp_fragm_plot ["value"] * (-1)
-        df_exp_fragm_plot ["Weight"] = df_exp_fragm_plot ["value"] / (df_exp_fragm_plot ["value"].sum())
-        df_exp_fragm_plot = df_exp_fragm_plot.rename (columns = {"secondary_category": "Secondary Category",
-                                                                "value": "Value"})
+        df_exp_fragm = df_exp_fragm.groupby (["secondary_category"]) ["value"].sum().reset_index()
+        df_exp_fragm ["value"] = df_exp_fragm ["value"] * (-1)
+        df_exp_fragm ["weight"] = df_exp_fragm ["value"] / (df_exp_fragm ["value"].sum())
 
         tab11, tab12 = st.tabs (["Pie Chart", "Dataset"])
 
         with tab11:
 
-            fig, ax = plt.subplots()
-            
-            wedges, label_texts, autopct_texts = ax.pie(df_exp_fragm_plot["Value"], labels=df_exp_fragm_plot["Secondary Category"], autopct='%1.1f%%', startangle=40,
-                    pctdistance=0.8, textprops={'color':"k", 'fontsize': 7}, colors=['tomato', 'turquoise', 'khaki', 'springgreen', "hotpink", "orange", "ghostwhite", "mediumorchid", "limegreen", "brown", "dodgerblue", "gold", "red", "mediumslateblue", "lawngreen", "peru"])
-            for txt in label_texts:
-                txt.set_color("white")
-            #plt.legend(loc="center left", bbox_to_anchor=(1, 0, 0.5, 1), labelcolor='black')
+            pie = alt.Chart(df_exp_fragm).mark_arc(outerRadius=300).encode(
+                theta=alt.Theta("value:Q", stack=True),
+                color=alt.Color("secondary_category:N", legend=None)
+            ).properties(height=800, width=800)
 
-            plt.style.use ("ggplot")
-            fig.patch.set_facecolor('none')  # figure background
-            ax.set_facecolor('none')         # axes background
+            # calculate angles
+            text_layer = (alt.Chart(df_exp_fragm).transform_window(cumulative='sum(value)', frame=[None, 0]).transform_calculate(mid_angle="datum.cumulative - datum.value/2"))
+                                
+            text_inside = text_layer.mark_text(size=25, color="black", align='center', baseline='middle').encode(
+                theta=alt.Theta("mid_angle:Q"),
+                radius=alt.value(200),
+                text=alt.Text("weight:Q", format=".1%")
+            )
+                            
+            text_outside = text_layer.mark_text(size=25, color="white", align='center', baseline='middle').encode(
+                theta=alt.Theta("mid_angle:Q"),
+                radius=alt.value(350),
+                text=alt.Text("secondary_category:N")
+            )
+                
+            chart = pie + text_inside + text_outside
 
-            st.pyplot(fig)
+            st.altair_chart(chart)
 
         with tab12:
 
-            st.dataframe(df_exp_fragm_plot, hide_index=True, column_config={"Value": st.column_config.NumberColumn ("Value (EUR)", format="euro"), "Weight": st.column_config.NumberColumn ("Weight (%)", format="percent")})
+            df_exp_fragm_table = df_exp_fragm.copy()
+            df_exp_fragm_table = df_exp_fragm_table.sort_values ("value", ascending = False)
+        
+            st.dataframe(df_exp_fragm_table, hide_index=True, column_config={"secondary_category": st.column_config.Column ("Secondary Category"), "value": st.column_config.NumberColumn ("Value (EUR)", format="euro"), "weight": st.column_config.NumberColumn ("Weight (%)", format="percent")})
         
         st.caption("This pie chart and correspondent dataset represent the weight of each secondary category in the selected primary categories.")
 
