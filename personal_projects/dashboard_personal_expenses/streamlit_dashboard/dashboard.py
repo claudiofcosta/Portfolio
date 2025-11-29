@@ -15,11 +15,11 @@ col1, col2 = st.columns (2, width=1000)
 with col1:
     uploaded_file = st.file_uploader("Upload your CSV file", type=["csv"])
     delimitador = st.text_input("Introduce the data delimiter", value = ";")
-    uploaded_file_df = pd.read_csv (uploaded_file, delimiter=delimitador)
 with col2:
     st.download_button ("Download a template CSV file", "https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_personal_expenses/personal_expenses_csv_template.csv?raw=1")
 
 if uploaded_file == True:
+    uploaded_file_df = pd.read_csv (uploaded_file, delimiter=delimitador)
     initial_dataset = uploaded_file_df
 else:
     initial_dataset = initial_dataset
