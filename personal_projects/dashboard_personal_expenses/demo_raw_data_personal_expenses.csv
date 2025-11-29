@@ -1,4 +1,4 @@
-id_expense;value;date;account_number;category_id;main_category;secondary_category
+id_expense;value;date;account;category_id;main_category;secondary_category
 1;-1200;01/01/2023;1111;8;Home Expenses;Rent
 2;-40;02/01/2023;2222;19;Health;Gym
 3;-100;04/01/2023;3333;20;Health;Health Insurance

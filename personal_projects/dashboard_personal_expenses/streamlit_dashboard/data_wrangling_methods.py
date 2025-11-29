@@ -26,13 +26,13 @@ def annual_avg(dataframe, grouping_column: str, neg_files=False):
 
 def evolution (dataframe):
     dataframe = dataframe.sort_values("date")
-    # determine all unique account numbers
-    list_accounts = dataframe["account_number"].drop_duplicates().tolist()
-    # add evolution per account number
+    # determine all unique account
+    list_accounts = dataframe["account"].drop_duplicates().tolist()
+    # add evolution per account
     list_column_titles = []
     for i in list_accounts:
         column_title = "balance_account_" + str(i)
-        dataframe [column_title] = (dataframe [dataframe ["account_number"] == i]) ["value"].cumsum()
+        dataframe [column_title] = (dataframe [dataframe ["account"] == i]) ["value"].cumsum()
         list_column_titles.append (column_title)
     # fill the NaN
     dataframe [list_column_titles] = dataframe[list_column_titles].ffill().fillna(0)   
@@ -44,8 +44,8 @@ def evolution (dataframe):
 
 def evolution_timeframe (dataframe, timeframe: str):
     """for the timeframe, write D for Daily, ME for Month-End, or YE for Year-End"""
-    # determine all unique account numbers
-    list_accounts = dataframe["account_number"].drop_duplicates().tolist()
+    # determine all unique account
+    list_accounts = dataframe["account"].drop_duplicates().tolist()
     # add get list of column titles
     list_column_titles_with_date = ["date"]
     list_column_titles_without_date = []
@@ -61,7 +61,7 @@ def evolution_timeframe (dataframe, timeframe: str):
     return dataframe
 
 def evolution_plot (dataframe):
-    # determine all unique account numbers
+    # determine all unique account
     list_column_titles = [i for i in dataframe.columns if "balance_account" in i]
     # make a list of the balances of each account in each timeframe
     list_dataframes = []

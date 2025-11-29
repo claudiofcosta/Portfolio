@@ -69,7 +69,7 @@ with lado_esq:
         st.dataframe (df_evolution_daily, column_config={
                         "value": st.column_config.Column ("Value"),
                         "date": st.column_config.DateColumn ("Date", format="YYYY-MM-DD"),
-                        "account_number": st.column_config.Column ("Account Number"),
+                        "account": st.column_config.Column ("Account"),
                         "balance_account_1111": st.column_config.NumberColumn ("Balance Account #1111", format="euro"),
                         "balance_account_2222": st.column_config.NumberColumn ("Balance Account #2222", format="euro"),
                         "balance_account_3333": st.column_config.NumberColumn ("Balance Account #3333", format="euro"),
@@ -121,7 +121,7 @@ with lado_esq:
         st.dataframe (df_evolution_month, column_config={
                         "value": st.column_config.Column ("Value"),
                         "date": st.column_config.DateColumn ("Month", format="YYYY-MM"),
-                        "account_number": st.column_config.Column ("Account Number"),
+                        "account": st.column_config.Column ("Account"),
                         "balance_account_1111": st.column_config.NumberColumn ("Balance Account #1111", format="euro"),
                         "balance_account_2222": st.column_config.NumberColumn ("Balance Account #2222", format="euro"),
                         "balance_account_3333": st.column_config.NumberColumn ("Balance Account #3333", format="euro"),
@@ -182,7 +182,7 @@ with lado_esq:
         st.dataframe (df_evolution_month, column_config={
                         "value": st.column_config.Column ("Value"),
                         "date": st.column_config.DateColumn ("Month", format="YYYY-MM"),
-                        "account_number": st.column_config.Column ("Account Number"),
+                        "account": st.column_config.Column ("Account"),
                         "balance_account_1111": st.column_config.NumberColumn ("Balance Account #1111", format="euro"),
                         "balance_account_2222": st.column_config.NumberColumn ("Balance Account #2222", format="euro"),
                         "balance_account_3333": st.column_config.NumberColumn ("Balance Account #3333", format="euro"),
@@ -198,13 +198,13 @@ with lado_esq:
 
     st.subheader ("Raw Data")
 
-    df_evo_raw = df_evolution [["id_expense", "value", "date", "account_number", "balance_account_1111", "balance_account_2222", "balance_account_3333", "total_balance"]]
+    df_evo_raw = df_evolution [["id_expense", "value", "date", "account", "balance_account_1111", "balance_account_2222", "balance_account_3333", "total_balance"]]
 
     st.dataframe (df_evo_raw, column_config={
                     "id_expense": st.column_config.Column ("ID Expense"),
                     "value": st.column_config.Column ("Value"),
                     "date": st.column_config.DateColumn ("Date", format="YYYY-MM-DD"),
-                    "account_number": st.column_config.Column ("Account Number"),
+                    "account": st.column_config.Column ("Account"),
                     "balance_account_1111": st.column_config.NumberColumn ("Balance Account #1111", format="euro"),
                     "balance_account_2222": st.column_config.NumberColumn ("Balance Account #2222", format="euro"),
                     "balance_account_3333": st.column_config.NumberColumn ("Balance Account #3333", format="euro"),
@@ -610,8 +610,8 @@ with lado_dir:
     df_data = df_data[df_data["secondary_category"].isin(movs2)] if len(movs2) != 0 else df_data
     # By account
     with col3:
-        movs3 = st.multiselect("Filter by account:", options=sorted(df_data["account_number"].unique().tolist()))
-    df_data = df_data[df_data["account_number"].isin(movs3)] if len(movs3) != 0 else df_data
+        movs3 = st.multiselect("Filter by account:", options=sorted(df_data["account"].unique().tolist()))
+    df_data = df_data[df_data["account"].isin(movs3)] if len(movs3) != 0 else df_data
     # By date
     with col4:
         try:
@@ -627,7 +627,7 @@ with lado_dir:
     st.dataframe(df_data, hide_index=True, column_config = {"id_expense": st.column_config.NumberColumn ("ID Expense"),
                                                             "value": st.column_config.NumberColumn ("Value", format="euro"),
                                                             "date": st.column_config.DateColumn ("Date"),
-                                                            "account_number": st.column_config.Column ("Account Number"),
+                                                            "account": st.column_config.Column ("Account"),
                                                             "category_id": st.column_config.Column ("Category ID"),
                                                             "main_category": st.column_config.Column ("Main Category"),
                                                             "secondary_category": st.column_config.Column ("Secondary Category")
