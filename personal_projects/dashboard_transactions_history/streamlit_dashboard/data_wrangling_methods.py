@@ -144,10 +144,6 @@ def alocation_by_geo (dataframe):
     # Grouping by order. Reminder: the unit price can be used in this sum because I classified it as 0 when we have a SELL
     dataframe = dataframe.groupby (["buy_id", "product_id", "product_name", "ticker", "code_stockexc", "currency", "geography_id", "perc_north_america", "perc_latin_america", "perc_europe", "perc_mena", "perc_east_se_asia", "perc_oceania", "perc_other_geo"]) [["quantity", "price_unit"]].sum().reset_index()
 
-    # Determine the total invested value by product, then do the respective grouping
-    dataframe ["invested_value"] = dataframe ["quantity"] * dataframe ["price_unit"]
-    dataframe = dataframe.groupby (["product_id", "product_name", "ticker", "code_stockexc", "currency", "geography_id", "perc_north_america", "perc_latin_america", "perc_europe", "perc_mena", "perc_east_se_asia", "perc_oceania", "perc_other_geo"]) [["quantity", "price_unit"]].sum().reset_index()
-
     # Add current prices
     dataframe = last_close_df (dataframe)
     dataframe ["current_value"] = dataframe ["quantity"] * dataframe ["current_closing_price"]
@@ -185,10 +181,6 @@ def alocation_by_type (dataframe):
 
     # Grouping by order. Reminder: the unit price can be used in this sum because I classified it as 0 when we have a SELL
     dataframe = dataframe.groupby (["product_id", "product_name", "ticker", "code_stockexc", "currency", "alocation_id", "perc_stocks", "perc_bonds", "perc_gold", "perc_crypto", "perc_other_fin_instruments"]) [["quantity", "price_unit"]].sum().reset_index()
-
-    # Determine the total invested value by product, then do the respective grouping
-    dataframe ["invested_value"] = dataframe ["quantity"] * dataframe ["price_unit"]
-    dataframe = dataframe.groupby (["product_id", "product_name", "ticker", "code_stockexc", "currency", "alocation_id", "perc_stocks", "perc_bonds", "perc_gold", "perc_crypto", "perc_other_fin_instruments"]) [["quantity", "invested_value"]].sum().reset_index()
 
     # Add current prices
     dataframe = last_close_df (dataframe)
