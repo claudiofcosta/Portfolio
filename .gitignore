@@ -18,5 +18,6 @@ personal_projects/dashboard_personal_expenses/streamlit_dashboard/dist/
 personal_projects/dashboard_personal_expenses/streamlit_dashboard/launch_app.spec
 
 # Obsolete files and folders
-personal_projects/dashboard_personal_expenses/obsolete_files
+personal_projects/dashboard_transactions_history/obsolete_files
 personal_projects/dashboard_wallet_yield/obsolete_files
+personal_projects/dashboard_personal_expenses/obsolete_files
