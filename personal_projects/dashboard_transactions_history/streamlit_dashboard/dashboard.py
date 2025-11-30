@@ -11,8 +11,8 @@ st.set_page_config(layout="wide")
 
 col1, col2 = st.columns (2, gap="large")
 with col1:
-    st.link_button ("SQL script for database creation", "https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_transactions_history/SQL_database_creation_template.sql/?raw=1")
-    df_template = pd.read_csv ("https://raw.githubusercontent.com/claudiofcosta/Portfolio/main/personal_projects/dashboard_transactions_history/transactions_history_data_template.xlsx/?raw=1", delimiter=";")
+    st.link_button ("SQL script for database creation", "https://github.com/claudiofcosta/Portfolio/blob/d94a968eadf1332db486612720c459326b4951c1/personal_projects/dashboard_transactions_history/SQL_database_creation_template.sql")
+    df_template = pd.read_csv ("https://github.com/claudiofcosta/Portfolio/blob/d94a968eadf1332db486612720c459326b4951c1/personal_projects/dashboard_transactions_history/transactions_history_data_template.xlsx", delimiter=";")
     df_template = df_template.to_csv().encode("utf-8")
     st.download_button ("Download a template Excel file", data=df_template, file_name="transactions_history_data_template.xlsx")
 
