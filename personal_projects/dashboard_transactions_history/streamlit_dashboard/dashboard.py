@@ -11,9 +11,12 @@ st.set_page_config(layout="wide")
 
 col1, col2 = st.columns ([0.3,0.7], gap="large")
 with col1:
-    st.link_button ("SQL script for database creation", "https://github.com/claudiofcosta/Portfolio/blob/d94a968eadf1332db486612720c459326b4951c1/personal_projects/dashboard_transactions_history/SQL_database_creation_template.sql")
-    st.link_button ("Template Excel file", "https://github.com/claudiofcosta/Portfolio/blob/d94a968eadf1332db486612720c459326b4951c1/personal_projects/dashboard_transactions_history/transactions_history_data_template.xlsx")
-    #st.download_button ("Download a template Excel file", data=df_template, file_name="transactions_history_data_template.xlsx")
+    st.caption ("Download links")
+    col11, col12 = st.columns (2)
+    with col11:
+        st.link_button ("SQL script for database creation", "https://github.com/claudiofcosta/Portfolio/blob/d94a968eadf1332db486612720c459326b4951c1/personal_projects/dashboard_transactions_history/SQL_database_creation_template.sql")
+    with col12:
+        st.link_button ("Template Excel file", "https://github.com/claudiofcosta/Portfolio/blob/d94a968eadf1332db486612720c459326b4951c1/personal_projects/dashboard_transactions_history/transactions_history_data_template.xlsx")
 
 with col2:
     col11, col12, col13 = st.columns (3)
