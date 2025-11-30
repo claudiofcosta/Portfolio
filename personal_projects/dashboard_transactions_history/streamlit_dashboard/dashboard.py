@@ -9,7 +9,7 @@ import data_wrangling_methods as dw
 
 st.set_page_config(layout="wide")
 
-col1, col2 = st.columns (2, gap="large")
+col1, col2 = st.columns ([0.3,0.7], gap="large")
 with col1:
     st.link_button ("SQL script for database creation", "https://github.com/claudiofcosta/Portfolio/blob/d94a968eadf1332db486612720c459326b4951c1/personal_projects/dashboard_transactions_history/SQL_database_creation_template.sql")
     st.link_button ("Template Excel file", "https://github.com/claudiofcosta/Portfolio/blob/d94a968eadf1332db486612720c459326b4951c1/personal_projects/dashboard_transactions_history/transactions_history_data_template.xlsx")
@@ -131,17 +131,17 @@ with col10:
         df_weights.loc [df_weights["product_name"] == "Deutsche Boerse Commodities Xetra-Gold ETC", "product_name"] = "Xetra Gold ETC"
         df_weights.loc [df_weights["product_name"] == "Goldman Sachs Access China Government Bond UCITS ETF USD (Dist)", "product_name"] = "Goldman Sachs China Gov Bonds"
 
-        pie = alt.Chart(df_weights).mark_arc(outerRadius=300).encode(
+        pie = alt.Chart(df_weights).mark_arc(outerRadius=200).encode(
                                                                         theta=alt.Theta("current_value:Q", stack=True),
                                                                         color=alt.Color("product_name:N", title="Products")
-                                                                        ).properties(height=800, width=800)
+                                                                        ).properties(height=600, width=600)
         
         # calculate angles
         text_layer = (alt.Chart(df_weights).transform_window(cumulative='sum(current_value)', sort=[{'field': 'product_name'}]).transform_calculate(mid_angle="datum.cumulative - datum.current_value/2"))
                             
         text = text_layer.mark_text(size=20, color="black", align='center', baseline='middle').encode(
             theta=alt.Theta("mid_angle:Q"),
-            radius=alt.value(200),
+            radius=alt.value(150),
             text=alt.Text("weight_in_wallet:Q", format=".1%") )
 
         chart = pie + text
@@ -177,17 +177,17 @@ with col11:
 
         # Describe the pie-chart
         
-        pie = alt.Chart(df_geographies).mark_arc(outerRadius=300).encode(
+        pie = alt.Chart(df_geographies).mark_arc(outerRadius=200).encode(
                                                                         theta=alt.Theta("weight:Q", stack=True),
                                                                         color=alt.Color("geo:N", title="Geography")
-                                                                        ).properties(height=800, width=800)
+                                                                        ).properties(height=600, width=600)
         
         # calculate angles
         text_layer = (alt.Chart(df_geographies).transform_window(cumulative='sum(weight)', sort=[{'field': 'geo'}]).transform_calculate(mid_angle="datum.cumulative - datum.weight/2"))
                             
         text = text_layer.mark_text(size=20, color="black", align='center', baseline='middle').encode(
             theta=alt.Theta("mid_angle:Q"),
-            radius=alt.value(200),
+            radius=alt.value(150),
             text=alt.Text("weight:Q", format=".1%") )
 
         chart = pie + text
@@ -224,17 +224,17 @@ with col12:
 
         # Describe the pie-chart
 
-        pie = alt.Chart(df_aloc_type).mark_arc(outerRadius=300).encode(
+        pie = alt.Chart(df_aloc_type).mark_arc(outerRadius=200).encode(
                                                                         theta=alt.Theta("weight:Q", stack=True),
                                                                         color=alt.Color("aloc_type:N", title="Asset Type")
-                                                                        ).properties(height=800, width=800)
+                                                                        ).properties(height=600, width=600)
         
         # calculate angles
         text_layer = (alt.Chart(df_aloc_type).transform_window(cumulative='sum(weight)', sort=[{'field': 'aloc_type'}]).transform_calculate(mid_angle="datum.cumulative - datum.weight/2"))
                             
         text = text_layer.mark_text(size=20, color="black", align='center', baseline='middle').encode(
             theta=alt.Theta("mid_angle:Q"),
-            radius=alt.value(200),
+            radius=alt.value(150),
             text=alt.Text("weight:Q", format=".1%") )
 
         chart = pie + text
